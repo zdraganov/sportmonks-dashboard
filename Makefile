@@ -3,7 +3,7 @@ local:
 .PHONY: local
 
 server:
-	npm start --prefix ./server
+	npm run dev --prefix ./server
 .PHONY: server
 
 frontend:

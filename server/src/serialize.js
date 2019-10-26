@@ -1,9 +1,10 @@
 const { table } = require('table')
 const pick = require('lodash.pick')
 const zipObject = require('lodash.zipobject')
+const { DateTime } = require('luxon')
 
 const HEADER = [
-  'Time', 'Home', 'Home Score', 'Away Score', 'Away',
+  'Time', 'Starting At', 'Minute', 'Home', 'Home Score', 'Away Score', 'Away',
   '1', 'X', '2', 'Over 2.5', 'Under 2.5', 'Both to score'
 ]
 
@@ -12,6 +13,9 @@ const HEADER = [
 //   '3-0', '3-1', '3-2', '3-3', '2-3', '1-3', '0-3',
 //   '4-0', '4-1', '4-2', '4-3', '4-4', '3-4', '2-4', '1-4', '0-4'
 // ]
+
+const TIMEZONE = 'Europe/Sofia'
+const DATE_FORMAT = 'LLL dd - HH:mm'
 
 function percentageToOdds (percentage) {
   return (100.0 / percentage).toFixed(4)
@@ -38,8 +42,11 @@ function serialize (matches) {
     } = match
 
     const timePrefix = ['FT', 'HT', 'NS'].includes(time.status) ? time.status : `${time.minute}'`
+    const startingAt = DateTime.fromSeconds(time.starting_at.timestamp, { zone: TIMEZONE }).toFormat(DATE_FORMAT)
+    const minute = time.minute
+
     return [
-      timePrefix, localTeam, localTeamScore, visitorTeamScore, visitorTeam,
+      timePrefix, startingAt, minute, localTeam, localTeamScore, visitorTeamScore, visitorTeam,
       ...predictions(match.probability.data.predictions)
     ]
   })

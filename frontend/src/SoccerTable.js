@@ -2,7 +2,7 @@ import React from 'react'
 import { fetchSoccerMatches } from './api'
 
 const HEADER = [
-  'Time', 'Home', 'Home Score', 'Away Score', 'Away',
+  'Time', 'Starting At', 'Minute', 'Home', 'Home Score', 'Away Score', 'Away',
   '1', 'X', '2', 'Over 2.5', 'Under 2.5', 'Both to score'
 ]
 
