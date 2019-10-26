@@ -10,7 +10,7 @@ const server = hapi.server({
 
 server.route({
     method: 'GET',
-    path: '/livescore',
+    path: '/api/livescore',
     handler: (req, reply) => {
       return todayMatches()
         .then(({ data }) => serialize(data))

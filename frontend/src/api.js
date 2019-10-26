@@ -1,5 +1,5 @@
 import superagent from 'superagent'
 
 export function fetchSoccerMatches () {
-  return superagent.get('/livescore').then(({ body }) => body)
+  return superagent.get('/api/livescore').then(({ body }) => body)
 }
